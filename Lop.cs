@@ -1,4 +1,4 @@
-namespace De001
+namespace DE01
 {
     using System;
     using System.Collections.Generic;
