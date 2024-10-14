@@ -1,36 +1,26 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-
-namespace De001
+namespace DE01.NewFolder1
 {
-    public partial class SinhVienModel : DbContext
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Sinhvien")]
+    public partial class Sinhvien
     {
-        public SinhVienModel()
-            : base("name=SinhVienModel")
-        {
-        }
+        [Key]
+        [StringLength(6)]
+        public string MaSV { get; set; }
 
-        public virtual DbSet<Lop> Lops { get; set; }
-        public virtual DbSet<Sinhvien> Sinhviens { get; set; }
+        [StringLength(40)]
+        public string HotenSV { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Lop>()
-                .Property(e => e.MaLop)
-                .IsFixedLength()
-                .IsUnicode(false);
+        [StringLength(3)]
+        public string MaLop { get; set; }
 
-            modelBuilder.Entity<Sinhvien>()
-                .Property(e => e.MaSV)
-                .IsFixedLength()
-                .IsUnicode(false);
+        public DateTime? NgaySinh { get; set; }
 
-            modelBuilder.Entity<Sinhvien>()
-                .Property(e => e.MaLop)
-                .IsFixedLength()
-                .IsUnicode(false);
-        }
+        public virtual Lop Lop { get; set; }
     }
 }
