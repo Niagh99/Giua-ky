@@ -1,26 +1,36 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace DE01.NewFolder1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
-    [Table("Sinhvien")]
-    public partial class Sinhvien
+    public partial class StudentModel : DbContext
     {
-        [Key]
-        [StringLength(6)]
-        public string MaSV { get; set; }
+        public StudentModel()
+            : base("name=StudentModel")
+        {
+        }
 
-        [StringLength(40)]
-        public string HotenSV { get; set; }
+        public virtual DbSet<Lop> Lops { get; set; }
+        public virtual DbSet<Sinhvien> Sinhviens { get; set; }
 
-        [StringLength(3)]
-        public string MaLop { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lop>()
+                .Property(e => e.MaLop)
+                .IsFixedLength()
+                .IsUnicode(false);
 
-        public DateTime? NgaySinh { get; set; }
+            modelBuilder.Entity<Sinhvien>()
+                .Property(e => e.MaSV)
+                .IsFixedLength()
+                .IsUnicode(false);
 
-        public virtual Lop Lop { get; set; }
+            modelBuilder.Entity<Sinhvien>()
+                .Property(e => e.MaLop)
+                .IsFixedLength()
+                .IsUnicode(false);
+        }
     }
 }
